@@ -30,12 +30,7 @@ import org.spongepowered.api.data.DataView;
 import org.spongepowered.api.data.DataView.SafetyMode;
 import org.spongepowered.api.data.persistence.DataFormats;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.zip.GZIPOutputStream;
 
 /**

@@ -47,6 +47,7 @@ import org.spongepowered.api.util.blockray.BlockRayHit;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
@@ -127,8 +128,7 @@ public class Sniper {
             }
 
             SnipeData snipeData = sniperTool.getSnipeData();
-            if (player.get(Keys.IS_SNEAKING).orElse(false)) {
-                Location<World> targetBlock = null;
+            if (player.getOrElse(Keys.IS_SNEAKING, false)) {
                 SnipeAction snipeAction = sniperTool.getActionAssigned(itemInHand.getType());
 
                 Predicate<BlockRayHit<World>> filter = BlockRay.continueAfterFilter(BlockRay.onlyAirFilter(), 1);
@@ -137,6 +137,7 @@ public class Sniper {
                     rayBuilder.distanceLimit(snipeData.getRange());
                 }
                 BlockRay<World> ray = rayBuilder.build();
+                Location<World> targetBlock = null;
                 while (ray.hasNext()) {
                     targetBlock = ray.next().getLocation();
                 }
@@ -433,10 +434,11 @@ public class Sniper {
 
         private IBrush instanciateBrush(Class<? extends IBrush> brush) {
             try {
-                return brush.newInstance();
-            } catch (InstantiationException e) {
-                return null;
-            } catch (IllegalAccessException e) {
+                return brush.getConstructor().newInstance();
+            } catch (InstantiationException |
+                     IllegalAccessException |
+                     NoSuchMethodException  |
+                     InvocationTargetException e) {
                 return null;
             }
         }
