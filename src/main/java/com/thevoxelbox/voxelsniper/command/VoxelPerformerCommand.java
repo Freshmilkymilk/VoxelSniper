@@ -24,6 +24,7 @@
  */
 package com.thevoxelbox.voxelsniper.command;
 
+import com.thevoxelbox.voxelsniper.Message;
 import com.thevoxelbox.voxelsniper.SnipeData;
 import com.thevoxelbox.voxelsniper.Sniper;
 import com.thevoxelbox.voxelsniper.SniperManager;
@@ -62,8 +63,11 @@ public class VoxelPerformerCommand implements CommandExecutor {
 
         Brush brush = sniper.getBrush(sniper.getCurrentToolId());
         if (brush instanceof PerformBrush) {
-            PerformBrush pBrush = (PerformBrush) brush;
-            pBrush.parse(new String[] { performer }, snipeData);
+            if (((PerformBrush) brush).setPerformer(performer)) {
+                (new Message(snipeData)).performerName(performer);
+            } else {
+                player.sendMessage(Text.of(TextColors.RED, "Problem parsing performers \"" + performer  + "\""));
+            }
         } else {
             player.sendMessage(Text.of(TextColors.RED, "This brush is not a performer brush."));
         }
