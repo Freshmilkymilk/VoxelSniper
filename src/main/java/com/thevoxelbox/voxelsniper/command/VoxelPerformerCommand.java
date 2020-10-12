@@ -63,11 +63,7 @@ public class VoxelPerformerCommand implements CommandExecutor {
 
         Brush brush = sniper.getBrush(sniper.getCurrentToolId());
         if (brush instanceof PerformBrush) {
-            if (((PerformBrush) brush).setPerformer(performer)) {
-                (new Message(snipeData)).performerName(performer);
-            } else {
-                player.sendMessage(Text.of(TextColors.RED, "Problem parsing performers \"" + performer  + "\""));
-            }
+            ((PerformBrush) brush).parse(new String[] { performer }, snipeData);
         } else {
             player.sendMessage(Text.of(TextColors.RED, "This brush is not a performer brush."));
         }
