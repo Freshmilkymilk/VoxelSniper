@@ -50,8 +50,6 @@ public class SnipeData {
     private Map<BlockTrait<?>, Object> voxelInkTraits;
     private Map<BlockTrait<?>, Object> replaceInkTraits;
 
-    private int voxelHeight;
-    private int cylinderCenter;
     private int range;
     private boolean ranged;
     private boolean lightning;
@@ -66,8 +64,6 @@ public class SnipeData {
 
         this.brushSize = VoxelSniperConfiguration.DEFAULT_BRUSH_SIZE;
         this.voxelList = new VoxelList();
-        this.voxelHeight = VoxelSniperConfiguration.DEFAULT_VOXEL_HEIGHT;
-        this.cylinderCenter = VoxelSniperConfiguration.DEFAULT_CYLINDER_CENTER;
         this.range = 0;
 
         voxelInkTraits = new HashMap<>();
@@ -80,14 +76,6 @@ public class SnipeData {
 
     public void setBrushSize(double brushSize) {
         this.brushSize = brushSize;
-    }
-
-    public int getCylinderCenter() {
-        return this.cylinderCenter;
-    }
-
-    public void setCylinderCenter(int cCen) {
-        this.cylinderCenter = cCen;
     }
 
     public int getRange() {
@@ -110,14 +98,6 @@ public class SnipeData {
         this.replaceState = state;
         this.replaceInkTraits.clear();
         this.replaceInkTraits.putAll(state.getTraitMap());
-    }
-
-    public int getVoxelHeight() {
-        return this.voxelHeight;
-    }
-
-    public void setVoxelHeight(int voxelHeight) {
-        this.voxelHeight = voxelHeight;
     }
 
     public String getVoxelId() {
