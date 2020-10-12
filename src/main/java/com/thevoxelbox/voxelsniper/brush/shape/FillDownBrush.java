@@ -100,6 +100,8 @@ public class FillDownBrush extends PerformBrush {
                 }
             }
         }
+        v.owner().storeUndo(this.undo);
+        this.undo = null;
     }
 
     @Override
