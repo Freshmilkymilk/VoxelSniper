@@ -44,7 +44,7 @@ import java.util.regex.Pattern;
 
 public abstract class PerformBrush extends Brush {
 
-    private static final Pattern PERFORMER = Pattern.compile("([mic])([mic]?)(p?)");
+    private static final Pattern PERFORMER = Pattern.compile("([mic])([micnx]?)(p?)");
 
     protected PerformerType placeMethod;
     protected PerformerType replaceMethod;
@@ -85,6 +85,10 @@ public abstract class PerformBrush extends Brush {
                 return PerformerType.TRAITS;
             case "c":
                 return PerformerType.COMBO;
+            case "n":
+                return PerformerType.LIST_INCLUDE;
+            case "x":
+                return PerformerType.LIST_EXCLUDE;
         }
         return PerformerType.NONE;
     }
@@ -124,6 +128,16 @@ public abstract class PerformBrush extends Brush {
                     return false;
                 }
                 break;
+            case LIST_INCLUDE:
+                if (!v.getVoxelList().contains(current)) {
+                    return false;
+                }
+                break;
+            case LIST_EXCLUDE:
+                if (v.getVoxelList().contains(current)) {
+                    return false;
+                }
+                break;
             case NONE:
             default:
                 break;
@@ -156,6 +170,8 @@ public abstract class PerformBrush extends Brush {
         TYPE,
         TRAITS,
         COMBO,
+        LIST_INCLUDE,
+        LIST_EXCLUDE,
         NONE;
 
         public String toString() {
@@ -166,6 +182,10 @@ public abstract class PerformBrush extends Brush {
                     return "Material";
                 case COMBO:
                     return "Combo";
+                case LIST_INCLUDE:
+                    return "List Include";
+                case LIST_EXCLUDE:
+                    return "List Exclude";
                 case NONE:
                     return "None";
             }
